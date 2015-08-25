@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Shalomat</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="blondinkeNav">Blondinke</string>
+    <string name="policaji">Policaji</string>
+    <string name="policajiNav">Policaji</string>
+    <string name="tvojaMamaNav">Tvoja Mama</string>
+    <string name="gostilniskeNav">Gostilniške</string>
+    <string name="janezNav">Janezek</string>
+    <string name="mujohasoNav"><![CDATA[Mujo & Haso]]></string>
+    <string name="crnihumorNav">Črni Humor</string>
+    <string name="tasceNav">Tašče</string>
+    <string name="politicniNav">Politični Vici</string>
+    <string name="yugoviciNav">Yugo Vici</string>
+    <string name="drawerOpen">Drawer Opened</string>
+    <string name="drawerClosed">Drawer Closed</string>
+</resources>

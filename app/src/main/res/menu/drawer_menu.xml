@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    >
+
+
+    <group android:checkableBehavior="single">
+
+    <item
+        android:icon="@drawable/ic_send_black_24dp"
+        android:id="@+id/blondinke_navigation"
+        android:title="@string/blondinkeNav"></item>
+
+    <item
+        android:icon="@drawable/ic_send_black_24dp"
+        android:id="@+id/policaji_navigation"
+        android:title="@string/policajiNav"></item>
+
+    <item
+        android:icon="@drawable/ic_send_black_24dp"
+
+        android:id="@+id/tvojamama_navigation"
+        android:title="@string/tvojaMamaNav"></item>
+
+    <item
+        android:icon="@drawable/ic_send_black_24dp"
+        android:id="@+id/gostilniske_navigation"
+        android:title="@string/gostilniskeNav">
+    </item>
+
+    <item
+        android:icon="@drawable/ic_send_black_24dp"
+        android:id="@+id/janezek_navigation"
+        android:title="@string/janezNav"></item>
+
+    <item
+        android:icon="@drawable/ic_send_black_24dp"
+        android:id="@+id/mujohaso_navigation"
+        android:title="@string/mujohasoNav"></item>
+
+    <item
+        android:icon="@drawable/ic_send_black_24dp"
+        android:id="@+id/crnihumor_navigation"
+        android:title="@string/crnihumorNav"></item>
+
+    <item
+        android:icon="@drawable/ic_send_black_24dp"
+        android:id="@+id/tasce_navigation"
+        android:title="@string/tasceNav"></item>
+
+    <item
+        android:icon="@drawable/ic_send_black_24dp"
+        android:id="@+id/politicnivici_navigation"
+        android:title="@string/politicniNav"></item>
+
+    <item
+        android:icon="@drawable/ic_send_black_24dp"
+        android:id="@+id/yugovici_navigation"
+        android:title="@string/yugoviciNav"></item>
+
+    </group>
+
+
+</menu>
