@@ -8,12 +8,30 @@ public class Joke {
     private String jokeContent;
     private int timesFavorited;
     private double userRating;
+    private boolean isFavorited = false;
+
+
+    public Joke(String content, double userR, boolean favOrNot){
+
+        jokeContent = content;
+        userRating = userR;
+        isFavorited = favOrNot;
+
+    }
 
 
 
     /*
         GETTERS AND SETTERS
      */
+
+    public boolean isFavorited() {
+        return isFavorited;
+    }
+
+    public void setIsFavorited(boolean isFavorited) {
+        this.isFavorited = isFavorited;
+    }
 
     public String getJokeContent() {
         return jokeContent;
