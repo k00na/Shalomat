@@ -6,10 +6,14 @@ package com.example.k00na_.shalomat.Model;
 public class Joke {
 
     private String jokeContent;
-    private int timesFavorited;
-    private double userRating;
+    private int timesFavorited = 0;
+    private double userRating = 0.0;
     private boolean isFavorited = false;
 
+
+    public Joke(){
+
+    }
 
     public Joke(String content, double userR, boolean favOrNot){
 

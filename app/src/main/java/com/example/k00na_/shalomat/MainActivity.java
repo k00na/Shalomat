@@ -10,12 +10,16 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.k00na_.shalomat.Model.DummyData;
+import com.example.k00na_.shalomat.adapters.AdapterForRecyclerView;
 import com.example.k00na_.shalomat.adapters.AdapterForTabs;
 
 public class MainActivity extends AppCompatActivity {
@@ -29,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
 
     private TabLayout mTabLayout;
     private ViewPager mViewPager;
+
+
+
 
 
     @Override
@@ -51,6 +58,16 @@ public class MainActivity extends AppCompatActivity {
         mNavigationView = (NavigationView)findViewById(R.id.navigationView);
 
         mTabLayout.setTabGravity(TabLayout.GRAVITY_CENTER);
+
+        // SETTING UP RECYCLERVIEW AND ALL THAT COMES WITH IT...
+
+
+
+
+
+
+
+
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

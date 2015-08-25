@@ -8,6 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.k00na_.shalomat.Model.DummyData;
+import com.example.k00na_.shalomat.Model.GostilniskeJokes;
+import com.example.k00na_.shalomat.Model.Joke;
 import com.example.k00na_.shalomat.R;
 
 import java.util.ArrayList;
@@ -18,9 +21,9 @@ import java.util.ArrayList;
 public class AdapterForRecyclerView extends RecyclerView.Adapter<JokeViewHolder> {
 
     private LayoutInflater mLayoutInflater;
-    private ArrayList mJokesList = new ArrayList<String>();
+    private ArrayList<Joke> mJokesList = new ArrayList<Joke>();
 
-    public AdapterForRecyclerView(Context context, ArrayList<String> jokes){
+    public AdapterForRecyclerView(Context context, ArrayList<Joke> jokes){
 
         mLayoutInflater = LayoutInflater.from(context);
         mJokesList = jokes;
@@ -34,13 +37,31 @@ public class AdapterForRecyclerView extends RecyclerView.Adapter<JokeViewHolder>
         View v = mLayoutInflater.inflate(R.layout.joke_view_holder, viewGroup, false);
         JokeViewHolder jokeViewHolder = new JokeViewHolder(v);
 
+
         return jokeViewHolder;
     }
 
     @Override
     public void onBindViewHolder(JokeViewHolder jokeViewHolder, int i) {
 
-        jokeViewHolder.jokePreviewText.setText("haha");
+        String actualString = mJokesList.get(i).getJokeContent();
+        int textSize = actualString.length();
+        if(textSize > 200)
+            actualString = actualString.substring(0, 200) + " ...";
+
+
+        else    // dodaj Stringu toliko presledkov, da bo dolg 200
+            for(int j = actualString.length(); actualString.length()<200; j++){
+                actualString = actualString + " ";
+            }
+
+
+
+        jokeViewHolder.jokePreviewText.setText(actualString);
+        jokeViewHolder.rating.setText(mJokesList.get(i).getUserRating() + "");
+
+        if(mJokesList.get(i).isFavorited())
+            jokeViewHolder.favoritedIcon.setImageResource(R.drawable.ic_star_black_24dp);
 
 
 
@@ -50,7 +71,7 @@ public class AdapterForRecyclerView extends RecyclerView.Adapter<JokeViewHolder>
 
     @Override
     public int getItemCount() {
-        return 0;
+        return GostilniskeJokes.getGostilniskeJokes().size();
     }
 }
 
