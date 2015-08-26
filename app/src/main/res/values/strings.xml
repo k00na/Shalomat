@@ -16,4 +16,5 @@
     <string name="yugoviciNav">Yugo Vici</string>
     <string name="drawerOpen">Drawer Opened</string>
     <string name="drawerClosed">Drawer Closed</string>
+    <string name="title_activity_joke_content">JokeContentActivity</string>
 </resources>
