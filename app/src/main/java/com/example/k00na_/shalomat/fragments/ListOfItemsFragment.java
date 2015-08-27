@@ -10,9 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.k00na_.shalomat.Model.DummyData;
 import com.example.k00na_.shalomat.Model.GostilniskeJokes;
-import com.example.k00na_.shalomat.Model.JokeArrays;
 import com.example.k00na_.shalomat.R;
 import com.example.k00na_.shalomat.adapters.AdapterForRecyclerView;
 
@@ -21,17 +19,20 @@ import com.example.k00na_.shalomat.adapters.AdapterForRecyclerView;
  */
 public class ListOfItemsFragment extends Fragment {
 
-    public static final String PAGE_INT_KEY = "pageintegerkey";
-    private int mCurrentPage;
+    public static final String CATEGORY_KEY = "pageintegerkey";
+    public static final String CATEGORY_TITLE_KEY = "categoryTitleKey";
+    private int mCurrentCategoryInt;
 
     private TextView mTextView;
     private RecyclerView mRecyclerView;
     private AdapterForRecyclerView mAdapterForRecyclerView;
+    private String mCurrentCategoryTitle;
 
-    public static Fragment newInstance(int pageNum){
+    public static Fragment newInstance(int categoryNum, String currentTitle){
 
         Bundle args = new Bundle();
-        args.putInt(PAGE_INT_KEY, pageNum);
+        args.putInt(CATEGORY_KEY, categoryNum);
+        args.putString(CATEGORY_TITLE_KEY, currentTitle);
         ListOfItemsFragment loiFragment = new ListOfItemsFragment();
         loiFragment.setArguments(args);
         return loiFragment;
@@ -42,7 +43,9 @@ public class ListOfItemsFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        mCurrentPage = getArguments().getInt(PAGE_INT_KEY);
+        mCurrentCategoryInt = getArguments().getInt(CATEGORY_KEY);
+        mCurrentCategoryTitle = getArguments().getString(CATEGORY_TITLE_KEY);
+
 
     }
 
@@ -52,9 +55,10 @@ public class ListOfItemsFragment extends Fragment {
 
         View v = inflater.inflate(R.layout.list_of_items_fragment, container, false);
 
+
         mRecyclerView = (RecyclerView)v.findViewById(R.id.recyclerViewID);
-        mAdapterForRecyclerView = new AdapterForRecyclerView(getActivity(), GostilniskeJokes.getGostilniskeJokes());
-        mRecyclerView.setHasFixedSize(true);
+        mAdapterForRecyclerView = new AdapterForRecyclerView(getActivity(), mCurrentCategoryInt, mCurrentCategoryTitle);
+       // mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mAdapterForRecyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
@@ -62,7 +66,7 @@ public class ListOfItemsFragment extends Fragment {
 
         /*
         mTextView = (TextView)v.findViewById(R.id.dummyTextViewId);
-        mTextView.setText("Fragment #" + mCurrentPage);
+        mTextView.setText("Fragment #" + mCurrentCategoryInt);
         mRecyclerView = (RecyclerView)v.findViewById(R.id.recyclerViewID);
         */
 

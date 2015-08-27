@@ -12,7 +12,7 @@ import com.example.k00na_.shalomat.fragments.ListOfItemsFragment;
  */
 public class AdapterForTabs extends FragmentStatePagerAdapter {
 
-    private static final String[] namesOfTabs = {"Najnovejši", "Najboljši", "Naključni"};
+    private static final String[] namesOfTabs = {"Naključni", "Priljubljeni"};
 
 
     public AdapterForTabs(FragmentManager fm, MainActivity mainActivity) {
@@ -22,11 +22,11 @@ public class AdapterForTabs extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        Fragment fragment = ListOfItemsFragment.newInstance(position);
+        Fragment fragment = ListOfItemsFragment.newInstance(position, "YO");
 
 
         return fragment;
-    }
+}
 
     @Override
     public int getCount() {

@@ -19,7 +19,8 @@
         </activity>
         <activity
             android:name=".Activities.JokeContentActivity"
-            android:label="@string/title_activity_joke_content" >
+            android:label="@string/title_activity_joke_content"
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 

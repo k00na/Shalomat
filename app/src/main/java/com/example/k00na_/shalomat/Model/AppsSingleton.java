@@ -2,6 +2,9 @@ package com.example.k00na_.shalomat.Model;
 
 import android.content.Context;
 
+import com.example.k00na_.shalomat.JokeCategories.BlondinkeJokes;
+import com.example.k00na_.shalomat.R;
+
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -15,18 +18,20 @@ public class AppsSingleton {
     private int currentCategoryInt;
     private ArrayList<Joke> currentJokeCategory;
 
-    private AppsSingleton(Context context, int categoryInt){
+    private AppsSingleton(Context context){
 
         mAppContext = context;
-        currentJokeCategory = new ArrayList<Joke>();
+
+
+
 
 
     }
 
-    public static AppsSingleton get(Context c, int categoryInt){
+    public static AppsSingleton get(Context c){
 
         if(sAppsSingleton == null)
-            sAppsSingleton = new AppsSingleton(c.getApplicationContext(), categoryInt);
+            sAppsSingleton = new AppsSingleton(c.getApplicationContext());
 
         return sAppsSingleton;
 
@@ -41,6 +46,30 @@ public class AppsSingleton {
 
         return null;
     }
+
+    public ArrayList<Joke> getCurrentJokeCategory(int categoryInt){
+
+        switch (categoryInt){
+
+            case(R.id.blondinke_navigation):{
+                currentJokeCategory = BlondinkeJokes.getBlondinkeJokes();
+                return currentJokeCategory;
+            }
+            case(R.id.gostilniske_navigation):{
+                currentJokeCategory = GostilniskeJokes.getGostilniskeJokes();
+                return currentJokeCategory;
+            }
+            default: {
+                currentJokeCategory = new ArrayList<Joke>();
+                return currentJokeCategory;
+            }
+
+        }
+    }
+
+
+
+
 
 
 

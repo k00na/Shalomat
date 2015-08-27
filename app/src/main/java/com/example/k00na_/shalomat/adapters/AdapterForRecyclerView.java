@@ -12,12 +12,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.k00na_.shalomat.Activities.JokeContentActivity;
+import com.example.k00na_.shalomat.Model.AppsSingleton;
 import com.example.k00na_.shalomat.Model.DummyData;
 import com.example.k00na_.shalomat.Model.GostilniskeJokes;
 import com.example.k00na_.shalomat.Model.Joke;
 import com.example.k00na_.shalomat.R;
+import com.example.k00na_.shalomat.fragments.ListOfItemsFragment;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 /**
  * Created by k00na_ on 25.8.2015.
@@ -27,6 +30,16 @@ public class AdapterForRecyclerView extends RecyclerView.Adapter<JokeViewHolder>
     private LayoutInflater mLayoutInflater;
     private ArrayList<Joke> mJokesList = new ArrayList<Joke>();
     private Context mContext;
+    private String mCurrentCategoryTitle;
+    private int mCurrentCategoryNum;
+
+    public AdapterForRecyclerView(Context context, int categoryNum, String categoryTitle){
+        mContext = context;
+        mLayoutInflater = LayoutInflater.from(context);
+        mJokesList = AppsSingleton.get(context).getCurrentJokeCategory(categoryNum);
+        mCurrentCategoryTitle = categoryTitle;
+        mCurrentCategoryNum = categoryNum;
+    }
 
     public AdapterForRecyclerView(Context context, ArrayList<Joke> jokes){
 
@@ -51,6 +64,7 @@ public class AdapterForRecyclerView extends RecyclerView.Adapter<JokeViewHolder>
     public void onBindViewHolder(JokeViewHolder jokeViewHolder, final int i) {
 
         String actualString = mJokesList.get(i).getJokeContent();
+        final UUID jokeID = mJokesList.get(i).getJokeID();
         int textSize = actualString.length();
         if(textSize > 200)
             actualString = actualString.substring(0, 200) + " ...";
@@ -72,8 +86,12 @@ public class AdapterForRecyclerView extends RecyclerView.Adapter<JokeViewHolder>
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext.getApplicationContext(), JokeContentActivity.class);
+                intent.putExtra("jokeIDForContentFragment", jokeID);
                 intent.putExtra("currentJokeIndex", i);
+                intent.putExtra(ListOfItemsFragment.CATEGORY_TITLE_KEY, mCurrentCategoryTitle);
+                intent.putExtra("currentCategoryInt", mCurrentCategoryNum);
                 mContext.startActivity(intent);
+
             }
         });
 
@@ -84,7 +102,7 @@ public class AdapterForRecyclerView extends RecyclerView.Adapter<JokeViewHolder>
 
     @Override
     public int getItemCount() {
-        return GostilniskeJokes.getGostilniskeJokes().size();
+        return mJokesList.size();
     }
 
 
