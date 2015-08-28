@@ -12,6 +12,7 @@ import com.example.k00na_.shalomat.Model.AppsSingleton;
 import com.example.k00na_.shalomat.Model.Joke;
 import com.example.k00na_.shalomat.R;
 
+import java.util.ArrayList;
 import java.util.UUID;
 
 /**
@@ -24,13 +25,14 @@ public class JokeContentFragment extends Fragment {
 
     }
 
-    public JokeContentFragment newInstance(UUID jokeID, int currentCatNum){
+    public static JokeContentFragment newInstance(UUID jokeID, int currentCatNum, int currJokeNum){
 
 
 
         Bundle args = new Bundle();
         args.putSerializable("jokeID", jokeID);
         args.putInt("currentCatNum", currentCatNum);
+        args.putInt("currJokeNum", currJokeNum);
 
 
         JokeContentFragment jokeContentFragment = new JokeContentFragment();
@@ -43,9 +45,12 @@ public class JokeContentFragment extends Fragment {
 
     private TextView mTextViewContent;
     private UUID jokeID;
-    private Joke joke;
+    private Joke mCurrentJoke;
     private boolean isFaved;
     private int currentCatNum;
+    private ArrayList<Joke> mCurrentCategory;
+    private int currentJokeNum;
+
 
 
     @Nullable
@@ -56,12 +61,16 @@ public class JokeContentFragment extends Fragment {
         Bundle bundle = getArguments();
         jokeID = (UUID) bundle.getSerializable("jokeID");
         currentCatNum = bundle.getInt("currentCatNum");
+        currentJokeNum = bundle.getInt("currJokeNum", 0);
 
-      //  joke = AppsSingleton.get(getActivity()).getCurrentJokeCategory(currentCatNum)
+        mCurrentCategory = AppsSingleton.get(getActivity()).getCurrentJokeCategory(currentCatNum);
+       // mCurrentJoke = AppsSingleton.get(getActivity()).getJoke(jokeID, mCurrentCategory);
+        mCurrentJoke = mCurrentCategory.get(currentJokeNum);
 
-
+        String currentJoke = mCurrentJoke.getJokeContent() + " work yo";
 
         mTextViewContent = (TextView)v.findViewById(R.id.jokeContentFragmentTextView);
+        mTextViewContent.setText(currentJoke);
 
 
         return  v;

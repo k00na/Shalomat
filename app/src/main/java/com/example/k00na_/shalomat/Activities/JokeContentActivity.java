@@ -24,10 +24,12 @@ import com.example.k00na_.shalomat.Model.GostilniskeJokes;
 import com.example.k00na_.shalomat.Model.Joke;
 import com.example.k00na_.shalomat.Model.JokeArrays;
 import com.example.k00na_.shalomat.R;
+import com.example.k00na_.shalomat.adapters.ViewPagerAdapter;
 import com.example.k00na_.shalomat.fragments.JokeContentFragment;
 import com.example.k00na_.shalomat.fragments.ListOfItemsFragment;
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class JokeContentActivity extends AppCompatActivity {
 
@@ -35,6 +37,7 @@ public class JokeContentActivity extends AppCompatActivity {
     private Toolbar mToolbar;
     private ArrayList<Joke> mCurrentCategory;
     private int mCurrentCategoryNum;
+    private UUID mJokeID;
 
     private ViewPager mViewPager;
     // letsdothis
@@ -45,10 +48,19 @@ public class JokeContentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_joke_content);
 
+        mViewPager = (ViewPager)findViewById(R.id.viewPagerXMLid);
+
+
+
+
+        /*
+            GETTING DATA
+         */
+
         Intent i = getIntent();
-        
 
 
+        mJokeID = (UUID) i.getSerializableExtra("jokeIDForContentFragment");
         int currentJokeIndex = i.getIntExtra("currentJokeIndex", 0);
         String currentTitle = i.getStringExtra(ListOfItemsFragment.CATEGORY_TITLE_KEY);
         mCurrentCategoryNum = i.getIntExtra("currentCategoryInt", 0);
@@ -60,6 +72,13 @@ public class JokeContentActivity extends AppCompatActivity {
 
         String currentJoke = mCurrentCategory.get(currentJokeIndex).getJokeContent();
 
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), mJokeID, mCurrentCategory, mCurrentCategoryNum);
+        mViewPager.setAdapter(adapter);
+
+        /*
+            TOOLBAR WIRING
+         */
+
         mToolbar = (Toolbar)findViewById(R.id.includingAppBarForJokeContent);
 
         setSupportActionBar(mToolbar);
@@ -67,8 +86,7 @@ public class JokeContentActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        jokeContent = (TextView)findViewById(R.id.jokeActivityTextViewContent);
-        jokeContent.setText(currentJoke);
+
 
 
 
@@ -125,29 +143,5 @@ public class JokeContentActivity extends AppCompatActivity {
         return currentCategory;
     }
 
-    private class MyPagerAdapter extends FragmentPagerAdapter{
 
-
-        private ArrayList<Joke> mJokes;
-        public MyPagerAdapter(FragmentManager fm, ArrayList<Joke> passThemJokes) {
-            super(fm);
-
-            mJokes = passThemJokes;
-
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-
-            JokeContentFragment jcFragment = new JokeContentFragment();
-
-
-            return null;
-        }
-
-        @Override
-        public int getCount() {
-            return mCurrentCategory.size();
-        }
-    }
 }

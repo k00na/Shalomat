@@ -22,10 +22,6 @@ public class AppsSingleton {
 
         mAppContext = context;
 
-
-
-
-
     }
 
     public static AppsSingleton get(Context c){
@@ -37,8 +33,8 @@ public class AppsSingleton {
 
     }
 
-    public Joke getJoke(UUID id){
-        for(Joke j : currentJokeCategory){
+    public Joke getJoke(UUID id, ArrayList<Joke> currentCat){
+        for(Joke j : currentCat){
             if(j.getJokeID().equals(id)){
                 return  j;
             }
