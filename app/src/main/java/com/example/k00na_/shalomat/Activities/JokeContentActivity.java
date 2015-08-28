@@ -37,6 +37,7 @@ public class JokeContentActivity extends AppCompatActivity {
     private int mCurrentCategoryNum;
 
     private ViewPager mViewPager;
+    // letsdothis
 
 
     @Override
