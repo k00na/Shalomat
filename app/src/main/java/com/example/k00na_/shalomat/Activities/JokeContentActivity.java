@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -72,8 +73,23 @@ public class JokeContentActivity extends AppCompatActivity {
 
         String currentJoke = mCurrentCategory.get(currentJokeIndex).getJokeContent();
 
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), mJokeID, mCurrentCategory, mCurrentCategoryNum);
-        mViewPager.setAdapter(adapter);
+    //    ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), mJokeID, mCurrentCategory, mCurrentCategoryNum, currentJokeIndex);
+    //    mViewPager.setAdapter(adapter);
+
+        mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
+
+                Joke joke = mCurrentCategory.get(position);
+
+                return JokeContentFragment.newInstance(joke.getJokeID());
+            }
+
+            @Override
+            public int getCount() {
+                return 0;
+            }
+        });
 
         /*
             TOOLBAR WIRING

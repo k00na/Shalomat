@@ -43,6 +43,8 @@ public class JokeContentFragment extends Fragment {
     }
 
 
+
+
     private TextView mTextViewContent;
     private UUID jokeID;
     private Joke mCurrentJoke;
@@ -51,7 +53,27 @@ public class JokeContentFragment extends Fragment {
     private ArrayList<Joke> mCurrentCategory;
     private int currentJokeNum;
 
+    public static JokeContentFragment newInstance(UUID jokeIDYo){
 
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("yooyo", jokeIDYo);
+
+        JokeContentFragment jcFragment = new JokeContentFragment();
+        jcFragment.setArguments(bundle);
+
+        return jcFragment;
+
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        UUID crimesID = (UUID)getActivity().getIntent().getSerializableExtra("jokeIDForContentFragment");
+        mCurrentCategory = AppsSingleton.get(getActivity()).getCurrentJokeCategory(currentCatNum);
+        mCurrentJoke = AppsSingleton.get(getActivity()).getJoke(crimesID, mCurrentCategory);
+
+    }
 
     @Nullable
     @Override
@@ -59,15 +81,25 @@ public class JokeContentFragment extends Fragment {
         View v = inflater.inflate(R.layout.joke_content_fragment, container, false);
 
         Bundle bundle = getArguments();
+
+        jokeID = (UUID) bundle.getSerializable("yooyo");
+
+
+
+        /*
         jokeID = (UUID) bundle.getSerializable("jokeID");
         currentCatNum = bundle.getInt("currentCatNum");
-        currentJokeNum = bundle.getInt("currJokeNum", 0);
+        */
+
+
+        currentJokeNum = getActivity().getIntent().getIntExtra("currentJokeIndex", 0);
+
 
         mCurrentCategory = AppsSingleton.get(getActivity()).getCurrentJokeCategory(currentCatNum);
-       // mCurrentJoke = AppsSingleton.get(getActivity()).getJoke(jokeID, mCurrentCategory);
-        mCurrentJoke = mCurrentCategory.get(currentJokeNum);
+        //      mCurrentJoke = AppsSingleton.get(getActivity()).getJoke(jokeID, mCurrentCategory);
+ //       mCurrentJoke = mCurrentCategory.get(currentJokeNum);
 
-        String currentJoke = mCurrentJoke.getJokeContent() + " work yo";
+       String currentJoke = mCurrentJoke.getJokeContent() + " work yo";
 
         mTextViewContent = (TextView)v.findViewById(R.id.jokeContentFragmentTextView);
         mTextViewContent.setText(currentJoke);

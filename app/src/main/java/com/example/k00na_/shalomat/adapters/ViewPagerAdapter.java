@@ -18,18 +18,20 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     private ArrayList<Joke> mJokeArrayList;
     private UUID crimeID;
     private int mCurrentCatNum;
+    private int mCurrentJokeIndex;
 
 
     public ViewPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 
-    public ViewPagerAdapter(FragmentManager fm, UUID crimeID, ArrayList<Joke> jokeObjects, int currentCategoryNum){
+    public ViewPagerAdapter(FragmentManager fm, UUID crimeID, ArrayList<Joke> jokeObjects, int currentCategoryNum, int jokeIndex){
         super(fm);
 
         this.crimeID = crimeID;
         this.mJokeArrayList = jokeObjects;
         this.mCurrentCatNum = currentCategoryNum;
+        mCurrentJokeIndex = jokeIndex;
     };
 
     @Override
