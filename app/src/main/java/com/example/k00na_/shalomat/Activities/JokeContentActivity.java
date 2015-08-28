@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -35,7 +36,7 @@ public class JokeContentActivity extends AppCompatActivity {
 
     private TextView jokeContent;
     private Toolbar mToolbar;
-    private ArrayList<Joke> mCurrentCategory;
+    private static ArrayList<Joke> mCurrentCategory;
     private int mCurrentCategoryNum;
     private UUID mJokeID;
 
@@ -51,14 +52,11 @@ public class JokeContentActivity extends AppCompatActivity {
         mViewPager = (ViewPager)findViewById(R.id.viewPagerXMLid);
 
 
-
-
         /*
             GETTING DATA
          */
 
         Intent i = getIntent();
-
 
         mJokeID = (UUID) i.getSerializableExtra("jokeIDForContentFragment");
         int currentJokeIndex = i.getIntExtra("currentJokeIndex", 0);
@@ -70,14 +68,12 @@ public class JokeContentActivity extends AppCompatActivity {
        // mCurrentCategory = setCurrentCategory(currentTitle);
         mCurrentCategory = AppsSingleton.get(getApplicationContext()).getCurrentJokeCategory(mCurrentCategoryNum);
 
-        String currentJoke = mCurrentCategory.get(currentJokeIndex).getJokeContent();
-
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), mJokeID, mCurrentCategory, mCurrentCategoryNum);
-        mViewPager.setAdapter(adapter);
+     //   String currentJoke = mCurrentCategory.get(currentJokeIndex).getJokeContent();
 
         /*
             TOOLBAR WIRING
          */
+
 
         mToolbar = (Toolbar)findViewById(R.id.includingAppBarForJokeContent);
 
@@ -86,9 +82,38 @@ public class JokeContentActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+//        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), mJokeID, mCurrentCategory, mCurrentCategoryNum);
+   //     mViewPager.setAdapter(adapter);
+
+        mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
+            @Override
+            public Fragment getItem(int position) {
 
 
+                return JokeContentFragment.newInstance(mJokeID);
 
+            }
+
+            @Override
+            public int getCount() {
+                return mCurrentCategory.size();
+            }
+
+
+        });
+
+        for(int j = 0; j<mCurrentCategory.size(); j++){
+            if(mCurrentCategory.get(j).getJokeID().equals(mJokeID)){
+                mViewPager.setCurrentItem(j);
+                break;
+            }
+        }
+
+    }
+
+    public static ArrayList<Joke> getJokesFromContentActivity(){
+
+        return mCurrentCategory;
 
 
     }

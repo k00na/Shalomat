@@ -68,13 +68,10 @@ public class AdapterForRecyclerView extends RecyclerView.Adapter<JokeViewHolder>
         int textSize = actualString.length();
         if(textSize > 200)
             actualString = actualString.substring(0, 200) + " ...";
-
-
         else    // dodaj Stringu toliko presledkov, da bo dolg 200
             for(int j = actualString.length(); actualString.length()<200; j++){
                 actualString = actualString + " ";
             }
-
 
         jokeViewHolder.jokePreviewText.setText(actualString);
         jokeViewHolder.rating.setText(mJokesList.get(i).getUserRating() + "");
@@ -123,12 +120,7 @@ class JokeViewHolder extends RecyclerView.ViewHolder {
         rating = (TextView)itemView.findViewById(R.id.ratingText);
         favoritedIcon = (ImageView)itemView.findViewById(R.id.favoritedIcon);
 
-        itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
-        });
 
     }
 

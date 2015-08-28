@@ -3,11 +3,13 @@ package com.example.k00na_.shalomat.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.k00na_.shalomat.Activities.JokeContentActivity;
 import com.example.k00na_.shalomat.Model.AppsSingleton;
 import com.example.k00na_.shalomat.Model.Joke;
 import com.example.k00na_.shalomat.R;
@@ -42,6 +44,18 @@ public class JokeContentFragment extends Fragment {
 
     }
 
+    public static JokeContentFragment newInstance(UUID jokeID){
+
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("jokeID", jokeID);
+
+        JokeContentFragment fragment = new JokeContentFragment();
+        fragment.setArguments(bundle);
+
+        return fragment;
+
+    }
+
 
     private TextView mTextViewContent;
     private UUID jokeID;
@@ -60,17 +74,15 @@ public class JokeContentFragment extends Fragment {
 
         Bundle bundle = getArguments();
         jokeID = (UUID) bundle.getSerializable("jokeID");
-        currentCatNum = bundle.getInt("currentCatNum");
-        currentJokeNum = bundle.getInt("currJokeNum", 0);
+        mCurrentCategory = JokeContentActivity.getJokesFromContentActivity();
+        Joke joke = AppsSingleton.get(getActivity()).getJoke(jokeID, mCurrentCategory);
 
-        mCurrentCategory = AppsSingleton.get(getActivity()).getCurrentJokeCategory(currentCatNum);
-       // mCurrentJoke = AppsSingleton.get(getActivity()).getJoke(jokeID, mCurrentCategory);
-        mCurrentJoke = mCurrentCategory.get(currentJokeNum);
+        Log.i("checkJoke", joke.getJokeContent() + " ");
 
-        String currentJoke = mCurrentJoke.getJokeContent() + " work yo";
+//        String currentJoke = joke.getJokeContent();
 
         mTextViewContent = (TextView)v.findViewById(R.id.jokeContentFragmentTextView);
-        mTextViewContent.setText(currentJoke);
+   //     mTextViewContent.setText(currentJoke);
 
 
         return  v;
