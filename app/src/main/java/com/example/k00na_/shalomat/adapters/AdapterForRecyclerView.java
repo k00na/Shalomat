@@ -41,13 +41,7 @@ public class AdapterForRecyclerView extends RecyclerView.Adapter<JokeViewHolder>
         mCurrentCategoryNum = categoryNum;
     }
 
-    public AdapterForRecyclerView(Context context, ArrayList<Joke> jokes){
 
-        mContext = context;
-        mLayoutInflater = LayoutInflater.from(context);
-        mJokesList = jokes;
-
-    }
 
 
     @Override
@@ -64,7 +58,6 @@ public class AdapterForRecyclerView extends RecyclerView.Adapter<JokeViewHolder>
     public void onBindViewHolder(JokeViewHolder jokeViewHolder, final int i) {
 
         String actualString = mJokesList.get(i).getJokeContent();
-        final UUID jokeID = mJokesList.get(i).getJokeID();
         int textSize = actualString.length();
         if(textSize > 200)
             actualString = actualString.substring(0, 200) + " ...";
@@ -82,6 +75,7 @@ public class AdapterForRecyclerView extends RecyclerView.Adapter<JokeViewHolder>
         jokeViewHolder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                UUID jokeID = mJokesList.get(i).getJokeID();
                 Intent intent = new Intent(mContext.getApplicationContext(), JokeContentActivity.class);
                 intent.putExtra("jokeIDForContentFragment", jokeID);
                 intent.putExtra("currentJokeIndex", i);

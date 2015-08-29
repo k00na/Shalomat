@@ -73,16 +73,35 @@ public class JokeContentFragment extends Fragment {
         View v = inflater.inflate(R.layout.joke_content_fragment, container, false);
 
         Bundle bundle = getArguments();
-        jokeID = (UUID) bundle.getSerializable("jokeID");
+      //  jokeID = (UUID) bundle.getSerializable("jokeID");
+        jokeID = (UUID) getActivity().getIntent().getSerializableExtra("jokeIDForContentFragment");
+
         mCurrentCategory = JokeContentActivity.getJokesFromContentActivity();
-        Joke joke = AppsSingleton.get(getActivity()).getJoke(jokeID, mCurrentCategory);
 
-        Log.i("checkJoke", joke.getJokeContent() + " ");
 
-//        String currentJoke = joke.getJokeContent();
+
+
+
+
+        for(int j = 0; j<mCurrentCategory.size(); j++){
+
+            UUID currentID = mCurrentCategory.get(j).getJokeID();
+
+            Log.i("forLoop", "current UUID: " + currentID.toString() + " || Joke UUID " + jokeID.toString());
+
+            if(mCurrentCategory.get(j).getJokeID().equals(jokeID)){
+                mCurrentJoke = mCurrentCategory.get(j);
+                break;
+            }
+        }
+
+        // NEW SHIT...
+
+
+        String currentJoke = mCurrentJoke.getJokeContent();
 
         mTextViewContent = (TextView)v.findViewById(R.id.jokeContentFragmentTextView);
-   //     mTextViewContent.setText(currentJoke);
+        mTextViewContent.setText(currentJoke);
 
 
         return  v;

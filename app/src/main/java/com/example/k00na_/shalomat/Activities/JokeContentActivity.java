@@ -65,10 +65,7 @@ public class JokeContentActivity extends AppCompatActivity {
 
         Log.i("checkcheck", "Current category num: " + mCurrentCategoryNum);
 
-       // mCurrentCategory = setCurrentCategory(currentTitle);
         mCurrentCategory = AppsSingleton.get(getApplicationContext()).getCurrentJokeCategory(mCurrentCategoryNum);
-
-     //   String currentJoke = mCurrentCategory.get(currentJokeIndex).getJokeContent();
 
         /*
             TOOLBAR WIRING
@@ -82,15 +79,16 @@ public class JokeContentActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-//        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), mJokeID, mCurrentCategory, mCurrentCategoryNum);
-   //     mViewPager.setAdapter(adapter);
+        /*
+            VIEW PAGERS ADAPTER
+         */
 
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
             public Fragment getItem(int position) {
 
-
-                return JokeContentFragment.newInstance(mJokeID);
+                Joke joke = mCurrentCategory.get(position);
+                return JokeContentFragment.newInstance(joke.getJokeID());
 
             }
 
