@@ -96,6 +96,7 @@ public class JokeContentFragment extends Fragment {
         }
 
         // NEW SHIT...
+        // test, test
 
 
         String currentJoke = mCurrentJoke.getJokeContent();
